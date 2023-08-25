@@ -23,7 +23,7 @@ export default function SearchPokemon() {
 				<div key={pokemon.num}>
 					<h3>{pokemon.species}</h3>
 					<img
-						width="400"
+						width="auto"
 						height="250"
 						alt="pokemon sprite"
 						src={pokemon.sprite}
