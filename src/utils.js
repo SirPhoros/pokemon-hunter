@@ -1,49 +1,32 @@
 import { gql } from '@apollo/client/core'
 import { client } from './client'
 
-export async function getPokemon(input) {
-	// The `variables` object will contain the user's input.
+export function getFuzzyPokemon(input) {
 	const variables = {
 		pokemon: input,
 	}
 
-	// Execute the GraphQL query with the user's input.
-	const result = await client.query({
-		query: gql`
-			{
-				getPokemon(pokemon: $pokemon) {
-					sprite
-					num
-					species
+	return client
+		.query({
+			query: gql`
+				query GetFuzzyPokemon($pokemon: String!) {
+					getFuzzyPokemon(pokemon: $pokemon) {
+						sprite
+						num
+						species
+					}
 				}
-			}
-		`,
-		variables,
-	})
+			`,
+			variables,
+		})
+		.then((result) => {
+			// Handle the result of the query here.
+			const pokemonData = result.data.getFuzzyPokemon
+			return pokemonData
+		})
+		.catch((error) => {
+			// Handle any errors that occurred during the query.
 
-	// Return the results of the query.
-	return result.data.getPokemon
-}
-export async function getFuzzyPokemon(input) {
-	// The `variables` object will contain the user's input.
-	const variables = {
-		pokemon: input,
-	}
-
-	// Execute the GraphQL query with the user's input.
-	const result = await client.query({
-		query: gql`
-			{
-				getFuzzyPokemon(pokemon: $pokemon) {
-					sprite
-					num
-					species
-				}
-			}
-		`,
-		variables,
-	})
-
-	// Return the results of the query.
-	return result.data.getPokemon
+			throw error // Rethrow the error if needed.
+		})
 }
