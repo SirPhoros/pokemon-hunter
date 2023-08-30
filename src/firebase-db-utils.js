@@ -41,8 +41,8 @@ export function handleSignUpWithEmail(email, password) {
 		.then(function () {
 			if (auth.currentUser) {
 				let userUid = auth.currentUser.uid
-				// Replace 'user' with the actual user object or data
-				let user = {
+
+				let userData = {
 					email: email,
 					emailVerified: false,
 					name: email.split('@')[0] || '',
@@ -50,7 +50,7 @@ export function handleSignUpWithEmail(email, password) {
 				}
 
 				// Set user data in Firestore
-				setDoc(doc(db, 'users', userUid), user)
+				setDoc(doc(db, 'users', userUid), userData)
 					.then(() => {
 						console.log('User data saved successfully')
 					})
