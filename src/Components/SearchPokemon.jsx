@@ -1,5 +1,5 @@
 import { useQuery, gql } from '@apollo/client'
-import { addPokemonToCollection } from '../firebase-db-utils'
+import { addPokemonToUserCollection } from '../firebase-db-utils'
 
 const EXAMPLE_POKEMON = gql`
 	{
@@ -19,7 +19,7 @@ export default function SearchPokemon() {
 	if (error) return <p>Error: {error.message}</p>
 
 	function handleAddPokemonToCollection(pokemonData) {
-		addPokemonToCollection(pokemonData)
+		addPokemonToUserCollection(pokemonData)
 	}
 
 	return (

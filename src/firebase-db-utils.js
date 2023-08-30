@@ -61,7 +61,23 @@ export function handleSignUpWithEmail(email, password) {
 		})
 }
 
-export function addPokemonToCollection(pokemonData) {
+export function addPokemonToUserCollection(pokemonData, userUid) {
 	const { num, species, sprite } = pokemonData
 	console.log(num, 'num', species, 'species', sprite, 'sprite')
+
+	const userPokemonDocRef = doc(db, 'Users', userUid, 'Pokemon', species)
+
+	// Set the Pokémon data in the user's Pokémon document
+	setDoc(userPokemonDocRef, pokemonData)
+		.then(() => {
+			console.log(
+				`Added ${species} to ${userUid}'s Pokémon collection successfully`
+			)
+		})
+		.catch((error) => {
+			console.error(
+				`Error adding ${species} to ${userUid}'s Pokémon collection:`,
+				error
+			)
+		})
 }
