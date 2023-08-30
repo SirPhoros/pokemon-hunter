@@ -65,12 +65,21 @@ describe('getAllPokemon', () => {
 	})
 
 	test('the array returned contains objects with the right properties', () => {
-		const expectedProperties = ['sprite', 'num', 'species']
+		const expectedProperties = ['sprite', 'num', 'species', '__typename']
 		return getAllPokemon().then((response) => {
 			response.forEach((pokemon) => {
 				expectedProperties.forEach((property) => {
 					expect(pokemon).toHaveProperty(property)
 				})
+			})
+		})
+	})
+	test('the array returned do no contain any extra properties', () => {
+		const expectedProperties = ['sprite', 'num', 'species', '__typename']
+		return getAllPokemon().then((response) => {
+			response.forEach((pokemon) => {
+				// Check if the object has exactly the expected properties and nothing more
+				expect(Object.keys(pokemon).sort()).toEqual(expectedProperties.sort())
 			})
 		})
 	})
