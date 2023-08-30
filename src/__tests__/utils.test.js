@@ -83,4 +83,20 @@ describe('getAllPokemon', () => {
 			})
 		})
 	})
+	test('Invalid Input (negative number)', () => {
+		const invalidInput = -123
+		return getAllPokemon(invalidInput).catch((error) => {
+			expect(error).toBeInstanceOf(Error)
+			expect(error.message).toContain('Received one or more errors')
+		})
+	})
+	test('Invalid Input (String)', () => {
+		const invalidInput = 'test'
+		return getAllPokemon(invalidInput).catch((error) => {
+			expect(error).toBeInstanceOf(Error)
+			expect(error.message).toContain(
+				'Response not successful: Received status code 400'
+			)
+		})
+	})
 })
