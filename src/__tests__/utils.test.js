@@ -75,7 +75,14 @@ describe('getAllPokemon', () => {
 		})
 	})
 	test('the array returned do no contain any extra properties', () => {
-		const expectedProperties = ['sprite', 'num', 'species', '__typename']
+		const expectedProperties = [
+			'sprite',
+			'num',
+			'species',
+			'__typename',
+			'shinySprite',
+			'types',
+		]
 		return getAllPokemon().then((response) => {
 			response.forEach((pokemon) => {
 				// Check if the object has exactly the expected properties and nothing more

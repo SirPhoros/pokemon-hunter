@@ -41,8 +41,12 @@ export function getAllPokemon(take = 10) {
 				query GetAllPokemon($take: Int) {
 					getAllPokemon(take: $take, offset: 89) {
 						sprite
+						shinySprite
 						num
 						species
+						types {
+							name
+						}
 					}
 				}
 			`,
