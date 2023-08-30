@@ -4,9 +4,13 @@ import { addPokemonToUserCollection } from '../firebase-db-utils'
 const EXAMPLE_POKEMON = gql`
 	{
 		getFuzzyPokemon(pokemon: "reun", take: 10, reverse: false) {
-			species
 			sprite
+			shinySprite
 			num
+			species
+			types {
+				name
+			}
 		}
 	}
 `

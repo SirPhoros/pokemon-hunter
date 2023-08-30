@@ -4,7 +4,13 @@ import { initializeApp } from 'firebase/app'
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 //Database Storage
-import { getFirestore, doc, setDoc } from 'firebase/firestore'
+import {
+	getFirestore,
+	doc,
+	setDoc,
+	updateDoc,
+	getDoc,
+} from 'firebase/firestore'
 //Firebase Auth
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 
@@ -61,9 +67,11 @@ export function handleSignUpWithEmail(email, password) {
 		})
 }
 
-export function addPokemonToUserCollection(pokemonData, userUid) {
-	const { num, species, sprite } = pokemonData
-	console.log(num, 'num', species, 'species', sprite, 'sprite')
+export function addPokemonToUserCollection(pokemon, userUid) {
+	const { species } = pokemon
+
+	const pokemonData = { ...pokemon, isShiny: false }
+	console.log(pokemonData)
 
 	const userPokemonDocRef = doc(db, 'Users', userUid, 'Pokemon', species)
 
@@ -77,6 +85,52 @@ export function addPokemonToUserCollection(pokemonData, userUid) {
 		.catch((error) => {
 			console.error(
 				`Error adding ${species} to ${userUid}'s Pokémon collection:`,
+				error
+			)
+		})
+}
+
+export function updateShinyState(pokemonData, userUid) {
+	const { species } = pokemonData
+	console.log(species, 'species')
+
+	// Reference to the user's Pokémon document
+	const userPokemonDocRef = doc(db, 'Users', userUid, 'Pokemon', species)
+
+	// Check if the document already exists
+	getDoc(userPokemonDocRef)
+		.then((docSnapshot) => {
+			if (docSnapshot.exists()) {
+				// Get the current data from the document
+				const currentData = docSnapshot.data()
+
+				const updatedData = {
+					...currentData,
+					isShiny: !currentData.isShiny, // Toggle the boolean value
+				}
+
+				// Update the document with the new data
+				updateDoc(userPokemonDocRef, updatedData)
+					.then(() => {
+						console.log(
+							`Toggled boolean value for ${species} in ${userUid}'s Pokémon collection successfully`
+						)
+					})
+					.catch((error) => {
+						console.error(
+							`Error toggling boolean value for ${species} in ${userUid}'s Pokémon collection:`,
+							error
+						)
+					})
+			} else {
+				console.error(
+					`${species} does not exist in ${userUid}'s Pokémon collection.`
+				)
+			}
+		})
+		.catch((error) => {
+			console.error(
+				`Error checking if ${species} exists in ${userUid}'s Pokémon collection:`,
 				error
 			)
 		})
