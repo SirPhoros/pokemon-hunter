@@ -4,9 +4,9 @@ import { initializeApp } from 'firebase/app'
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 //Database Storage
-import { getFirestore } from 'firebase/firestore'
+import { getFirestore, doc, setDoc } from 'firebase/firestore'
 //Firebase Auth
-import { getAuth } from 'firebase/auth'
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -24,3 +24,38 @@ const app = initializeApp(firebaseConfig)
 //Initialise Services
 const db = getFirestore(app)
 const auth = getAuth(app)
+
+let createUser = createUserWithEmailAndPassword(auth, email, password)
+
+// If there is any error, stop the process.
+createUser
+	.catch(function (error) {
+		let errorCode = error.code
+		console.log(`GOT ERROR: ` + errorCode)
+		if (errorCode === 'auth/weak-password') {
+			console.error('Password is too weak. Minimum 6 characters.')
+		} else if (errorCode === 'auth/email-already-in-use') {
+			console.error('Email is already in use.')
+		}
+	})
+	.then(function () {
+		if (auth.currentUser) {
+			let userUid = auth.currentUser.uid
+			// Replace 'user' with the actual user object or data
+			let user = {
+				email: email,
+				emailVerified: false,
+				name: email.split('@')[0] || '',
+				password: password,
+			}
+
+			// Set user data in Firestore
+			setDoc(doc(db, 'users', userUid), user)
+				.then(() => {
+					console.log('User data saved successfully')
+				})
+				.catch((error) => {
+					console.error('Error saving user data:', error)
+				})
+		}
+	})
