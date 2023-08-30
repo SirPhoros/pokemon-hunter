@@ -12,7 +12,12 @@ import {
 	getDoc,
 } from 'firebase/firestore'
 //Firebase Auth
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import {
+	getAuth,
+	createUserWithEmailAndPassword,
+	signInWithEmailAndPassword,
+	signOut,
+} from 'firebase/auth'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -69,7 +74,18 @@ export function handleSignUpWithEmail(email, password) {
 }
 
 export function logIn(email, password) {
-	return signInWithEmailAndPassword(auth, email, password)
+	signInWithEmailAndPassword(auth, email, password)
+		.then((userCredential) => {
+			// Signed in
+			const user = userCredential.user
+			console.log('user signed in')
+		})
+		.catch((error) => {
+			const errorCode = error.code
+			const errorMessage = error.message
+			console.log(`GOT ERROR: ` + errorCode)
+			console.log(errorMessage)
+		})
 }
 
 export function logOut() {
@@ -149,5 +165,26 @@ export function updateShinyState(pokemonData, userUid) {
 				`Error checking if ${species} exists in ${userUid}'s Pokémon collection:`,
 				error
 			)
+		})
+}
+
+export function fetchUserPokemonCollection(userUid) {
+	return getDocs(collection(db, 'Users', userUid, 'Pokemon'))
+		.then((querySnapshot) => {
+			// Initialize an array to store the Pokémon data
+			const pokemonCollection = []
+
+			// Loop through the query results and add them to the array
+			querySnapshot.forEach((doc) => {
+				const pokemonData = doc.data()
+				pokemonCollection.push(pokemonData)
+			})
+
+			// Return the Pokémon collection
+			return pokemonCollection
+		})
+		.catch((error) => {
+			console.error('Error fetching user Pokémon collection:', error)
+			return [] // Return an empty array in case of an error
 		})
 }
