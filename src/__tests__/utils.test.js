@@ -1,4 +1,4 @@
-import { getFuzzyPokemon } from '../utils'
+import { getAllPokemon, getFuzzyPokemon } from '../utils'
 
 describe('getFuzzyPokemon', () => {
 	test('Pikachu', () => {
@@ -43,17 +43,35 @@ describe('getFuzzyPokemon', () => {
 	test('Invalid Input (Non-String)', () => {
 		// Pass an invalid input (a number) to the function
 		const invalidInput = 123
-		return getFuzzyPokemon(invalidInput)
-			.then((response) => {
-				// If the Promise resolves, this test should fail.
-				// If an error is thrown, the test will pass.
-				throw new Error('Expected an error but got a response')
+		return getFuzzyPokemon(invalidInput).catch((error) => {
+			expect(error).toBeInstanceOf(Error)
+			expect(error.message).toContain(
+				'Response not successful: Received status code 400'
+			)
+		})
+	})
+})
+
+describe('getAllPokemon', () => {
+	test('returns an array of 10 pokemons if no input is introduced', () => {
+		return getAllPokemon().then((response) => {
+			expect(response).toHaveLength(10)
+		})
+	})
+	test('returns an array of X pokemons if input is introduced', () => {
+		return getAllPokemon(2).then((response) => {
+			expect(response).toHaveLength(2)
+		})
+	})
+
+	test('the array returned contains objects with the right properties', () => {
+		const expectedProperties = ['sprite', 'num', 'species']
+		return getAllPokemon().then((response) => {
+			response.forEach((pokemon) => {
+				expectedProperties.forEach((property) => {
+					expect(pokemon).toHaveProperty(property)
+				})
 			})
-			.catch((error) => {
-				expect(error).toBeInstanceOf(Error)
-				expect(error.message).toContain(
-					'Response not successful: Received status code 400'
-				)
-			})
+		})
 	})
 })

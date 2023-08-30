@@ -30,3 +30,32 @@ export function getFuzzyPokemon(input) {
 			throw error // Rethrow the error if needed.
 		})
 }
+export function getAllPokemon(take = 10) {
+	const variables = {
+		take,
+	}
+
+	return client
+		.query({
+			query: gql`
+				query GetAllPokemon($take: Int) {
+					getAllPokemon(take: $take, offset: 89) {
+						sprite
+						num
+						species
+					}
+				}
+			`,
+			variables,
+		})
+		.then((result) => {
+			// Handle the result of the query here.
+			const pokemonData = result.data.getAllPokemon
+			return pokemonData
+		})
+		.catch((error) => {
+			// Handle any errors that occurred during the query.
+
+			throw error // Rethrow the error if needed.
+		})
+}
