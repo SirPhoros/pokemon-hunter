@@ -1,4 +1,5 @@
 import { useQuery, gql } from '@apollo/client'
+import { addPokemonToCollection } from '../firebase-db-utils'
 
 const EXAMPLE_POKEMON = gql`
 	{
@@ -17,8 +18,12 @@ export default function SearchPokemon() {
 
 	if (error) return <p>Error: {error.message}</p>
 
+	function handleAddPokemonToCollection(pokemonData) {
+		addPokemonToCollection(pokemonData)
+	}
+
 	return (
-		<div>
+		<article>
 			{data.getFuzzyPokemon.map((pokemon) => (
 				<div key={pokemon.num}>
 					<h3>{pokemon.species}</h3>
@@ -29,9 +34,12 @@ export default function SearchPokemon() {
 						src={pokemon.sprite}
 					/>
 					<br />
+					<button onClick={() => handleAddPokemonToCollection(pokemon)}>
+						Add to collection
+					</button>
 					<br />
 				</div>
 			))}
-		</div>
+		</article>
 	)
 }

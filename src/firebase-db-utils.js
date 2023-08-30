@@ -60,3 +60,8 @@ export function handleSignUpWithEmail(email, password) {
 			}
 		})
 }
+
+export function addPokemonToCollection(pokemonData) {
+	const { num, species, sprite } = pokemonData
+	console.log(num, 'num', species, 'species', sprite, 'sprite')
+}
