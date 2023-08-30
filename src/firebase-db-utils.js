@@ -24,13 +24,14 @@ const firebaseConfig = {
 	appId: '1:150000503332:web:058b918744d3f03e4fe6b1',
 }
 
-// Initialize Firebase
+//INITIALISE FIREBASE
 const app = initializeApp(firebaseConfig)
 
-//Initialise Services
+//INITIALISE SERVICES
 const db = getFirestore(app)
 const auth = getAuth(app)
 
+//AUTH FUNCTIONS - FIREBASE
 export function handleSignUpWithEmail(email, password) {
 	let createUser = createUserWithEmailAndPassword(auth, email, password)
 	// If there is any error, stop the process.
@@ -67,6 +68,21 @@ export function handleSignUpWithEmail(email, password) {
 		})
 }
 
+export function logIn(email, password) {
+	return signInWithEmailAndPassword(auth, email, password)
+}
+
+export function logOut() {
+	signOut(auth)
+		.then(() => {
+			console.log('user signed out')
+		})
+		.catch((error) => {
+			console.error('Error logging out:', error)
+		})
+}
+
+//DATABASE FUNCTIONS - FIREBASE
 export function addPokemonToUserCollection(pokemon, userUid) {
 	const { species } = pokemon
 
