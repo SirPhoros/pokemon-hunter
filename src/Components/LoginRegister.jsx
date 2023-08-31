@@ -7,21 +7,31 @@ function LoginRegister({ setIsLoggedIn }) {
 
 	const handleLogin = () => {
 		logIn(email, password)
-			.then(() => {
-				setIsLoggedIn(true) // If login is successful, set the user as logged in
+			.then((user) => {
+				if (user) {
+					setIsLoggedIn(true)
+					setEmail('')
+					setPassword('')
+				} else {
+					console.error('User is undefined')
+				}
 			})
 			.catch((error) => {
-				console.error(error.message) // Handle login error here
+				console.error(error.message)
 			})
 	}
 
 	const handleRegister = () => {
 		handleSignUpWithEmail(email, password)
-			.then(() => {
-				setIsLoggedIn(true) // If registration is successful, set the user as logged in
+			.then((user) => {
+				if (user) {
+					setIsLoggedIn(true)
+				} else {
+					console.error('User is undefined')
+				}
 			})
 			.catch((error) => {
-				console.error(error.message) // Handle registration error here
+				console.error(error.message)
 			})
 	}
 

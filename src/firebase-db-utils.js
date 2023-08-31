@@ -38,10 +38,28 @@ const auth = getAuth(app)
 
 //AUTH FUNCTIONS - FIREBASE
 export function handleSignUpWithEmail(email, password) {
-	let createUser = createUserWithEmailAndPassword(auth, email, password)
-	// If there is any error, stop the process.
-	createUser
-		.catch(function (error) {
+	return createUserWithEmailAndPassword(auth, email, password)
+		.then((userCredential) => {
+			const user = userCredential.user
+			const userUid = user.uid
+			const userData = {
+				email: email,
+				emailVerified: false,
+				name: email.split('@')[0] || '',
+				password: password,
+			}
+
+			return setDoc(doc(db, 'users', userUid), userData)
+				.then(() => {
+					console.log('User data saved successfully')
+					return user // Return the user information
+				})
+				.catch((error) => {
+					console.error('Error saving user data:', error)
+					throw error // Rethrow the error to be caught by the caller
+				})
+		})
+		.catch((error) => {
 			let errorCode = error.code
 			console.log(`GOT ERROR: ` + errorCode)
 			if (errorCode === 'auth/weak-password') {
@@ -49,42 +67,24 @@ export function handleSignUpWithEmail(email, password) {
 			} else if (errorCode === 'auth/email-already-in-use') {
 				console.error('Email is already in use.')
 			}
-		})
-		.then(function () {
-			if (auth.currentUser) {
-				let userUid = auth.currentUser.uid
-
-				let userData = {
-					email: email,
-					emailVerified: false,
-					name: email.split('@')[0] || '',
-					password: password,
-				}
-
-				// Set user data in Firestore
-				setDoc(doc(db, 'users', userUid), userData)
-					.then(() => {
-						console.log('User data saved successfully')
-					})
-					.catch((error) => {
-						console.error('Error saving user data:', error)
-					})
-			}
+			throw error // Rethrow the error to be caught by the caller
 		})
 }
 
 export function logIn(email, password) {
-	signInWithEmailAndPassword(auth, email, password)
+	return signInWithEmailAndPassword(auth, email, password)
 		.then((userCredential) => {
 			// Signed in
 			const user = userCredential.user
 			console.log('user signed in')
+			return user // Return the user information
 		})
 		.catch((error) => {
 			const errorCode = error.code
 			const errorMessage = error.message
 			console.log(`GOT ERROR: ` + errorCode)
 			console.log(errorMessage)
+			throw error // Rethrow the error to be caught by the caller
 		})
 }
 
