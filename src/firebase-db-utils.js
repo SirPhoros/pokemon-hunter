@@ -49,7 +49,7 @@ export function handleSignUpWithEmail(email, password) {
 				password: password,
 			}
 
-			return setDoc(doc(db, 'users', userUid), userData)
+			return setDoc(doc(db, 'Users', userUid), userData)
 				.then(() => {
 					console.log('User data saved successfully')
 					return user // Return the user information
