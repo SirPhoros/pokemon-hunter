@@ -9,7 +9,6 @@ function App() {
 	// 	localStorage.getItem('isLoggedIn') === 'true'
 	// )
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
-	console.log(isLoggedIn, 'loggedIn status')
 
 	useEffect(() => {
 		// // Save the login state to local storage
