@@ -1,30 +1,19 @@
 import { useState } from 'react'
 import './App.css'
-import { client } from './client'
-import { gql } from '@apollo/client'
 import SearchPokemon from './Components/SearchPokemon'
+import LoginRegister from './Components/LoginRegister'
 
 function App() {
-	const [count, setCount] = useState(0)
-
-	client
-		.query({
-			query: gql`
-				{
-					getPokemon(pokemon: dragonite) {
-						sprite
-						num
-						species
-					}
-				}
-			`,
-		})
-		.then((result) => console.log(result))
+	const [isLoggedIn, setIsLoggedIn] = useState(false)
 
 	return (
 		<>
 			<h1>Pokemon Hunter</h1>
-			<SearchPokemon></SearchPokemon>
+			{isLoggedIn ? (
+				<SearchPokemon /> // Render the main component if the user is logged in
+			) : (
+				<LoginRegister setIsLoggedIn={setIsLoggedIn} /> // Pass setIsLoggedIn to your login/register component
+			)}
 		</>
 	)
 }
