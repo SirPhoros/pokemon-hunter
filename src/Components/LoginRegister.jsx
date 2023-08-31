@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { handleSignUpWithEmail, logIn } from '../firebase-db-utils'
+import { useUser } from '../context/UserContext'
 
 function LoginRegister({ setIsLoggedIn }) {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const { setUserUID } = useUser()
 
 	const handleLogin = () => {
 		logIn(email, password)
@@ -12,6 +14,8 @@ function LoginRegister({ setIsLoggedIn }) {
 					setIsLoggedIn(true)
 					setEmail('')
 					setPassword('')
+					// Set the user's UID in the context
+					setUserUID(user.uid)
 				} else {
 					console.error('User is undefined')
 				}
@@ -25,7 +29,11 @@ function LoginRegister({ setIsLoggedIn }) {
 		handleSignUpWithEmail(email, password)
 			.then((user) => {
 				if (user) {
+					setEmail('')
+					setPassword('')
 					setIsLoggedIn(true)
+					// Set the user's UID in the context
+					setUserUID(user.uid)
 				} else {
 					console.error('User is undefined')
 				}

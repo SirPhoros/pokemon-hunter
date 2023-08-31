@@ -1,5 +1,6 @@
 import { useQuery, gql } from '@apollo/client'
 import { addPokemonToUserCollection } from '../firebase-db-utils'
+import { useUser } from '../context/UserContext'
 
 const EXAMPLE_POKEMON = gql`
 	{
@@ -16,6 +17,7 @@ const EXAMPLE_POKEMON = gql`
 `
 
 export default function SearchPokemon() {
+	const { userUID } = useUser()
 	const { data, loading, error } = useQuery(EXAMPLE_POKEMON)
 
 	if (loading) return <p>Loading...</p>

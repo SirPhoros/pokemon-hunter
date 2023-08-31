@@ -100,6 +100,7 @@ export function logOut() {
 
 //DATABASE FUNCTIONS - FIREBASE
 export function addPokemonToUserCollection(pokemon, userUid) {
+	console.log(userUid, 'userUid')
 	const { species } = pokemon
 
 	const pokemonData = { ...pokemon, isShiny: false }
