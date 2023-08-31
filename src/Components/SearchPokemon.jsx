@@ -1,36 +1,39 @@
-import { useQuery, gql } from '@apollo/client'
+import React, { useEffect, useState } from 'react'
 import { addPokemonToUserCollection } from '../firebase-db-utils'
 import { useUser } from '../context/UserContext'
-
-const EXAMPLE_POKEMON = gql`
-	{
-		getFuzzyPokemon(pokemon: "reun", take: 10, reverse: false) {
-			sprite
-			shinySprite
-			num
-			species
-			types {
-				name
-			}
-		}
-	}
-`
+import { getAllPokemon } from '../utils'
 
 export default function SearchPokemon() {
 	const { userUID } = useUser()
-	const { data, loading, error } = useQuery(EXAMPLE_POKEMON)
+	const [pokemonData, setPokemonData] = useState([])
+	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState(null)
+
+	useEffect(() => {
+		// Fetch the Pokémon data using your getAllPokemon function
+		getAllPokemon(20)
+			.then((data) => {
+				setPokemonData(data)
+				setLoading(false)
+			})
+			.catch((error) => {
+				setError(error)
+				setLoading(false)
+			})
+	}, [])
+
+	function handleAddPokemonToCollection(pokemon) {
+		addPokemonToUserCollection(pokemon, userUID)
+	}
 
 	if (loading) return <p>Loading...</p>
 
 	if (error) return <p>Error: {error.message}</p>
-
-	function handleAddPokemonToCollection(pokemonData) {
-		addPokemonToUserCollection(pokemonData, userUID)
-	}
+	console.log(pokemonData)
 
 	return (
 		<article>
-			{data.getFuzzyPokemon.map((pokemon) => (
+			{pokemonData.map((pokemon) => (
 				<div key={pokemon.num}>
 					<h3>{pokemon.species}</h3>
 					<img
