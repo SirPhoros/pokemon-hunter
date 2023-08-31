@@ -25,7 +25,7 @@ export default function SearchPokemon() {
 	if (error) return <p>Error: {error.message}</p>
 
 	function handleAddPokemonToCollection(pokemonData) {
-		addPokemonToUserCollection(pokemonData)
+		addPokemonToUserCollection(pokemonData, userUID)
 	}
 
 	return (
