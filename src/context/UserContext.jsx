@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
+import Cookies from 'js-cookie'
 
 const UserContext = createContext()
 
@@ -7,6 +8,33 @@ export const useUser = () => useContext(UserContext)
 export function UserProvider({ children }) {
 	const [userUID, setUserUID] = useState(null)
 	const [username, setUsername] = useState(null)
+
+	// Load user data from cookies on component mount
+	useEffect(() => {
+		const storedUID = Cookies.get('userUID')
+		const storedUsername = Cookies.get('username')
+		if (storedUID && storedUsername) {
+			setUserUID(storedUID)
+			setUsername(storedUsername)
+		}
+	}, [])
+
+	// Save user data to cookies whenever it changes
+	useEffect(() => {
+		if (userUID && username) {
+			// Set cookies with an expiration date (e.g., 30 days)
+			const expirationDays = 30
+			const expirationDate = new Date()
+			expirationDate.setDate(expirationDate.getDate() + expirationDays)
+
+			Cookies.set('userUID', userUID, { expires: expirationDate })
+			Cookies.set('username', username, { expires: expirationDate })
+		} else {
+			// Remove cookies if data is empty
+			Cookies.remove('userUID')
+			Cookies.remove('username')
+		}
+	}, [userUID, username])
 
 	return (
 		<UserContext.Provider
