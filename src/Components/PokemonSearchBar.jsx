@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { getFuzzyPokemon } from '../utils'
 
+
 export default function PokemonSearchBar({ onSearch }) {
 	const [searchQuery, setSearchQuery] = useState('')
 
@@ -15,14 +16,20 @@ export default function PokemonSearchBar({ onSearch }) {
 	}
 
 	return (
-		<section>
+		<section style={{ display: 'flex', alignItems: 'center' }}>
 			<input
 				type="text"
 				placeholder="Search for a Pokémon"
 				value={searchQuery}
 				onChange={(e) => setSearchQuery(e.target.value)}
+				style={{ flex: 1, marginRight: '10px', padding: '5px' }}
 			/>
-			<button onClick={handleSearch}>Search</button>
+			<button
+				onClick={handleSearch}
+				style={{ padding: '5px' }}
+			>
+				Search
+			</button>
 		</section>
 	)
 }

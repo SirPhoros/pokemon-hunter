@@ -33,29 +33,32 @@ export default function PokemonGrid() {
 	if (error) return <p>Error: {error.message}</p>
 
 	return (
-		<>
-			<PokemonSearchBar onSearch={setSearchResults} />{' '}
-			{/* Pass the setSearchResults function */}
-			<section>
+		<div className="pokemon-grid-container">
+			<PokemonSearchBar onSearch={setSearchResults} />
+			<section className="pokemon-grid">
 				{/* Display either search results or all Pokémon */}
-				{searchResults.length > 0 // Use search results if available
-					? searchResults.map((pokemon) => (
+				{searchResults.length > 0
+					? // Use search results if available
+					  searchResults.map((pokemon) => (
 							<article
 								className="pokemon-card"
 								key={pokemon.species}
 							>
-								<h3>{pokemon.species}</h3>
+								<h3 className="pokemon-name">{pokemon.species}</h3>
+								<div className="divider"></div>
 								<img
-									width="auto"
-									height="250"
+									className="pokemon-image"
 									alt="pokemon sprite"
 									src={pokemon.sprite}
 								/>
-								<br />
-								<button onClick={() => handleAddPokemonToCollection(pokemon)}>
-									Add to collection
-								</button>
-								<br />
+								<div className="button-container">
+									<button
+										className="add-to-collection-button"
+										onClick={() => handleAddPokemonToCollection(pokemon)}
+									>
+										Add to collection
+									</button>
+								</div>
 							</article>
 					  ))
 					: // Use all Pokémon data if no search results
@@ -64,21 +67,21 @@ export default function PokemonGrid() {
 								className="pokemon-card"
 								key={pokemon.species}
 							>
-								<h3>{pokemon.species}</h3>
+								<h3 className="pokemon-name">{pokemon.species}</h3>
+								<div className="divider"></div>
 								<img
-									width="auto"
-									height="250"
+									className="pokemon-image"
 									alt="pokemon sprite"
 									src={pokemon.sprite}
 								/>
-								<br />
-								<button onClick={() => handleAddPokemonToCollection(pokemon)}>
-									Add to collection
-								</button>
-								<br />
+								<div className="button-container">
+									<button onClick={() => handleAddPokemonToCollection(pokemon)}>
+										Add to collection
+									</button>
+								</div>
 							</article>
 					  ))}
 			</section>
-		</>
+		</div>
 	)
 }
