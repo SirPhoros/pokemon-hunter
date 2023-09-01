@@ -29,7 +29,7 @@ export default function Collection() {
 
 	return (
 		<>
-			<h2>Your Pokémon Collection</h2>
+			<h1>Your Pokémon Collection</h1>
 			<div className="pokemon-grid-container">
 				<section className="pokemon-grid scrollable-container">
 					{pokemonCollection.map((pokemon) => (
