@@ -4,14 +4,14 @@ import SearchPokemon from './SearchPokemon'
 import LoginRegister from './LoginRegister'
 
 export default function HomePage() {
-	// const [isLoggedIn, setIsLoggedIn] = useState(
-	// 	localStorage.getItem('isLoggedIn') === 'true'
-	// )
-	const [isLoggedIn, setIsLoggedIn] = useState(false)
+	const [isLoggedIn, setIsLoggedIn] = useState(
+		localStorage.getItem('isLoggedIn') === 'true'
+	)
+	// const [isLoggedIn, setIsLoggedIn] = useState(false)
 
 	useEffect(() => {
-		// // Save the login state to local storage
-		// localStorage.setItem('isLoggedIn', isLoggedIn)
+		// Save the login state to local storage
+		localStorage.setItem('isLoggedIn', isLoggedIn)
 	}, [isLoggedIn])
 
 	return (

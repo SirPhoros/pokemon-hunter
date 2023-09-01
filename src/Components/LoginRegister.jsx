@@ -5,7 +5,7 @@ import { useUser } from '../context/UserContext'
 function LoginRegister({ setIsLoggedIn }) {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
-	const { setUserUID } = useUser()
+	const { setUserUID, setUsername } = useUser()
 
 	const handleLogin = () => {
 		logIn(email, password)
@@ -14,8 +14,9 @@ function LoginRegister({ setIsLoggedIn }) {
 					setIsLoggedIn(true)
 					setEmail('')
 					setPassword('')
-					// Set the user's UID in the context
+					// Set the user's UID and username in the context
 					setUserUID(user.uid)
+					setUsername(user.username)
 				} else {
 					console.error('User is undefined')
 				}
@@ -32,8 +33,9 @@ function LoginRegister({ setIsLoggedIn }) {
 					setEmail('')
 					setPassword('')
 					setIsLoggedIn(true)
-					// Set the user's UID in the context
+					// Set the user's UID and username in the context
 					setUserUID(user.uid)
+					setUsername(user.username)
 				} else {
 					console.error('User is undefined')
 				}
