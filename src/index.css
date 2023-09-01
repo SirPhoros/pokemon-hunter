@@ -209,3 +209,45 @@ y
 	max-height: 500px; /* Set a fixed height for the container */
 	overflow-y: auto; /* Enable vertical scrolling if content overflows */
 }
+
+/* LoginRegister.css */
+.login-register-container {
+	background-color: #f0f0f0;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 600px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.login-register-container h2 {
+	color: #ff1f1f;
+}
+
+.login-register-container input {
+	padding: 10px; /* Add some padding to inputs */
+	border: 1px solid #ccc; /* Add a border to inputs */
+	border-radius: 5px; /* Rounded corners for inputs */
+}
+
+.login-register-container button {
+	background-color: #007bff; /* Blue background for buttons */
+	color: white; /* White text color */
+	border: none;
+	border-radius: 5px;
+	padding: 10px 20px; /* Adjust padding as needed */
+	cursor: pointer;
+	font-size: 1rem;
+}
+
+.login-register-container button:hover {
+	background-color: #0056b3; /* Darker blue on hover */
+}
+
+.login-register-container button:first-child {
+	margin-right: 10px; /* Add some spacing between buttons */
+}

@@ -53,7 +53,7 @@ function LoginRegister() {
 	}
 
 	return (
-		<section>
+		<section className="login-register-container">
 			<h2>Login/Register</h2>
 			<input
 				type="text"
