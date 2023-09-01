@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie'
 import React, { useState } from 'react'
 import { handleSignUpWithEmail, logIn } from '../firebase-db-utils'
 import { useUser } from '../context/UserContext'
@@ -17,6 +18,9 @@ function LoginRegister({ setIsLoggedIn }) {
 					// Set the user's UID and username in the context
 					setUserUID(user.uid)
 					setUsername(user.username)
+					// Successfully logged in, set user data as cookies
+					Cookies.set('userUID', user.uid)
+					Cookies.set('username', user.username)
 				} else {
 					console.error('User is undefined')
 				}
@@ -36,6 +40,9 @@ function LoginRegister({ setIsLoggedIn }) {
 					// Set the user's UID and username in the context
 					setUserUID(user.uid)
 					setUsername(user.username)
+					// Successfully registered in, set user data as cookies
+					Cookies.set('userUID', user.uid)
+					Cookies.set('username', user.username)
 				} else {
 					console.error('User is undefined')
 				}
