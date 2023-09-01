@@ -1,9 +1,9 @@
+import React, { useEffect, useState } from 'react'
 import { useUser } from '../context/UserContext'
 import {
 	fetchUserPokemonCollection,
 	updateShinyState,
 } from '../firebase-db-utils'
-import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export default function Collection() {
@@ -28,37 +28,43 @@ export default function Collection() {
 	}
 
 	return (
-		<div>
+		<>
 			<h2>Your Pokémon Collection</h2>
-
-			{pokemonCollection.map((pokemon) => (
-				<article
-					className="pokemon-card"
-					key={pokemon.species}
-				>
-					<h3>{pokemon.species}</h3>
-					{pokemon.isShiny ? (
-						<img
-							width="auto"
-							height="250"
-							alt="shiny pokemon sprite"
-							src={pokemon.shinySprite}
-						/>
-					) : (
-						<img
-							width="auto"
-							height="250"
-							alt="pokemon sprite"
-							src={pokemon.sprite}
-						/>
-					)}
-					<br />
-					<button onClick={() => updateShinyState(pokemon, userUID)}>
-						{pokemon.isShiny ? 'Make Normal' : 'Make Shiny'}
-					</button>
-					<br />
-				</article>
-			))}
-		</div>
+			<div className="pokemon-grid-container">
+				<section className="pokemon-grid scrollable-container">
+					{pokemonCollection.map((pokemon) => (
+						<article
+							className="pokemon-card"
+							key={pokemon.species}
+						>
+							<h3 className="pokemon-name">{pokemon.species}</h3>
+							<div className="divider"></div>
+							{pokemon.isShiny ? (
+								<img
+									className="pokemon-image"
+									width="auto"
+									height="250"
+									alt="shiny pokemon sprite"
+									src={pokemon.shinySprite}
+								/>
+							) : (
+								<img
+									className="pokemon-image"
+									width="auto"
+									height="250"
+									alt="pokemon sprite"
+									src={pokemon.sprite}
+								/>
+							)}
+							<div className="button-container">
+								<button onClick={() => updateShinyState(pokemon, userUID)}>
+									{pokemon.isShiny ? 'Make Normal' : 'Make Shiny'}
+								</button>
+							</div>
+						</article>
+					))}
+				</section>
+			</div>
+		</>
 	)
 }

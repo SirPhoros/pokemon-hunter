@@ -35,8 +35,7 @@ export default function PokemonGrid() {
 	return (
 		<div className="pokemon-grid-container">
 			<PokemonSearchBar onSearch={setSearchResults} />
-			<section className="pokemon-grid">
-				{/* Display either search results or all Pokémon */}
+			<section className="pokemon-grid scrollable-container">
 				{searchResults.length > 0
 					? // Use search results if available
 					  searchResults.map((pokemon) => (
