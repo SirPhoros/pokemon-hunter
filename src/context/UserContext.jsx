@@ -8,6 +8,7 @@ export const useUser = () => useContext(UserContext)
 export function UserProvider({ children }) {
 	const [userUID, setUserUID] = useState(null)
 	const [username, setUsername] = useState(null)
+	const [isLoggedIn, setIsLoggedIn] = useState(false) // Add this state
 
 	// Load user data from cookies on component mount
 	useEffect(() => {
@@ -16,6 +17,7 @@ export function UserProvider({ children }) {
 		if (storedUID && storedUsername) {
 			setUserUID(storedUID)
 			setUsername(storedUsername)
+			setIsLoggedIn(true) // Set isLoggedIn to true if user data is found in cookies
 		}
 	}, [])
 
@@ -40,7 +42,7 @@ export function UserProvider({ children }) {
 	const clearUserDataOnLogOut = () => {
 		setUserUID(null)
 		setUsername(null)
-
+		setIsLoggedIn(false) // Set isLoggedIn to false on logout
 		// Clear cookies
 		Cookies.remove('userUID')
 		Cookies.remove('username')
@@ -48,7 +50,15 @@ export function UserProvider({ children }) {
 
 	return (
 		<UserContext.Provider
-			value={{ userUID, setUserUID, username, setUsername, clearUserDataOnLogOut }}
+			value={{
+				userUID,
+				setUserUID,
+				username,
+				setUsername,
+				setIsLoggedIn,
+				isLoggedIn,
+				clearUserDataOnLogOut,
+			}}
 		>
 			{children}
 		</UserContext.Provider>

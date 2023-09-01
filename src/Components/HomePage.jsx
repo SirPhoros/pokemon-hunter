@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import LoginRegister from './LoginRegister'
 import PokemonGrid from './PokemonGrid'
+import { useUser } from '../context/UserContext'
 
-export default function HomePage({ isLoggedIn, setIsLoggedIn }) {
+export default function HomePage() {
+	const { isLoggedIn } = useUser();
 	useEffect(() => {}, [isLoggedIn])
-
-	console.log(isLoggedIn, 'is Logged in?')
 
 	return (
 		<>
@@ -13,7 +13,7 @@ export default function HomePage({ isLoggedIn, setIsLoggedIn }) {
 			{isLoggedIn ? (
 				<PokemonGrid />
 			) : (
-				<LoginRegister setIsLoggedIn={setIsLoggedIn} />
+				<LoginRegister />
 			)}
 		</>
 	)

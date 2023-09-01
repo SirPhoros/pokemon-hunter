@@ -3,10 +3,10 @@ import React, { useState } from 'react'
 import { handleSignUpWithEmail, logIn } from '../firebase-db-utils'
 import { useUser } from '../context/UserContext'
 
-function LoginRegister({ setIsLoggedIn }) {
+function LoginRegister() {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
-	const { setUserUID, setUsername } = useUser()
+	const { setUserUID, setUsername, setIsLoggedIn } = useUser()
 
 	const handleLogin = () => {
 		logIn(email, password)

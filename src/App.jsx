@@ -7,21 +7,14 @@ import Collection from './Components/Collection'
 import HomePage from './Components/HomePage'
 
 function App() {
-	const [isLoggedIn, setIsLoggedIn] = useState(false)
-
 	return (
 		<BrowserRouter>
 			<UserProvider>
-				<Nav setIsLoggedIn={setIsLoggedIn} />
+				<Nav />
 				<Routes>
 					<Route
 						path="/"
-						element={
-							<HomePage
-								isLoggedIn={isLoggedIn}
-								setIsLoggedIn={setIsLoggedIn}
-							/>
-						}
+						element={<HomePage />}
 					/>
 					<Route
 						path="/collection"
