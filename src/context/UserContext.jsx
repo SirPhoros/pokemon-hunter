@@ -48,13 +48,7 @@ export function UserProvider({ children }) {
 
 	return (
 		<UserContext.Provider
-			value={{
-				userUID,
-				setUserUID,
-				username,
-				setUsername,
-				clearUserDataOnLogOut,
-			}}
+			value={{ userUID, setUserUID, username, setUsername, clearUserDataOnLogOut }}
 		>
 			{children}
 		</UserContext.Provider>

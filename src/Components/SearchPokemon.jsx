@@ -34,7 +34,7 @@ export default function SearchPokemon() {
 	return (
 		<article>
 			{pokemonData.map((pokemon) => (
-				<div key={pokemon.num}>
+				<div key={pokemon.species}>
 					<h3>{pokemon.species}</h3>
 					<img
 						width="auto"

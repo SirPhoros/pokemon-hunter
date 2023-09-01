@@ -1,18 +1,11 @@
-import React, { useState, useEffect } from 'react'
-
+import React, { useEffect } from 'react'
 import SearchPokemon from './SearchPokemon'
 import LoginRegister from './LoginRegister'
 
-export default function HomePage() {
-	// const [isLoggedIn, setIsLoggedIn] = useState(
-	// 	localStorage.getItem('isLoggedIn') === 'true'
-	// )
-	const [isLoggedIn, setIsLoggedIn] = useState(false)
+export default function HomePage({ isLoggedIn, setIsLoggedIn }) {
+	useEffect(() => {}, [isLoggedIn])
 
-	useEffect(() => {
-		// Save the login state to local storage
-		// localStorage.setItem('isLoggedIn', isLoggedIn)
-	}, [isLoggedIn])
+	console.log(isLoggedIn, 'is Logged in?')
 
 	return (
 		<>

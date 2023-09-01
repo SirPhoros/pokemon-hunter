@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
 import Nav from './Components/Nav'
@@ -7,14 +7,21 @@ import Collection from './Components/Collection'
 import HomePage from './Components/HomePage'
 
 function App() {
+	const [isLoggedIn, setIsLoggedIn] = useState(false)
+
 	return (
 		<BrowserRouter>
 			<UserProvider>
-				<Nav />
+				<Nav setIsLoggedIn={setIsLoggedIn} />
 				<Routes>
 					<Route
 						path="/"
-						element={<HomePage />}
+						element={
+							<HomePage
+								isLoggedIn={isLoggedIn}
+								setIsLoggedIn={setIsLoggedIn}
+							/>
+						}
 					/>
 					<Route
 						path="/collection"
