@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom'
 import { useUser } from '../context/UserContext'
 import { logOut } from '../firebase-db-utils'
 
+import SearchIcon from '@mui/icons-material/Search'
+import MenuBookIcon from '@mui/icons-material/MenuBook'
+import LogoutIcon from '@mui/icons-material/Logout'
+
 export default function Nav() {
 	const { username, clearUserDataOnLogOut } = useUser()
 
@@ -17,10 +21,29 @@ export default function Nav() {
 
 	return (
 		<nav className="nav">
-			<Link to="/">Pokémon Searcher </Link>
-			<Link to="/collection">My collection </Link>
-			{username && <span>Welcome trainer, {username}!</span>}{' '}
-			<button onClick={handleLogOut}>Log out</button>
+			<Link to="/">
+				<SearchIcon />
+				Pokémon Searcher{' '}
+			</Link>
+			<Link to="/collection">
+				<MenuBookIcon />
+				My collection{' '}
+			</Link>
+			{username && (
+				<span>
+					Welcome trainer, {username}!{' '}
+					<button
+						style={{
+							border: 'none',
+							background: 'none',
+							padding: '0', // Optional: Remove any padding or margin if needed
+						}}
+						onClick={handleLogOut}
+					>
+						<LogoutIcon fontSize="small" />
+					</button>
+				</span>
+			)}
 		</nav>
 	)
 }
