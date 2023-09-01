@@ -15,7 +15,7 @@ export default function PokemonSearchBar({ onSearch }) {
 	}
 
 	return (
-		<div>
+		<section>
 			<input
 				type="text"
 				placeholder="Search for a Pokémon"
@@ -23,6 +23,6 @@ export default function PokemonSearchBar({ onSearch }) {
 				onChange={(e) => setSearchQuery(e.target.value)}
 			/>
 			<button onClick={handleSearch}>Search</button>
-		</div>
+		</section>
 	)
 }

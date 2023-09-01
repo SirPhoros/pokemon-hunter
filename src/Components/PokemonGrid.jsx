@@ -36,11 +36,14 @@ export default function PokemonGrid() {
 		<>
 			<PokemonSearchBar onSearch={setSearchResults} />{' '}
 			{/* Pass the setSearchResults function */}
-			<article>
+			<section>
 				{/* Display either search results or all Pokémon */}
 				{searchResults.length > 0 // Use search results if available
 					? searchResults.map((pokemon) => (
-							<div key={pokemon.species}>
+							<article
+								className="pokemon-card"
+								key={pokemon.species}
+							>
 								<h3>{pokemon.species}</h3>
 								<img
 									width="auto"
@@ -53,11 +56,14 @@ export default function PokemonGrid() {
 									Add to collection
 								</button>
 								<br />
-							</div>
+							</article>
 					  ))
 					: // Use all Pokémon data if no search results
 					  pokemonData.map((pokemon) => (
-							<div key={pokemon.species}>
+							<article
+								className="pokemon-card"
+								key={pokemon.species}
+							>
 								<h3>{pokemon.species}</h3>
 								<img
 									width="auto"
@@ -70,9 +76,9 @@ export default function PokemonGrid() {
 									Add to collection
 								</button>
 								<br />
-							</div>
+							</article>
 					  ))}
-			</article>
+			</section>
 		</>
 	)
 }

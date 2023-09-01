@@ -30,34 +30,35 @@ export default function Collection() {
 	return (
 		<div>
 			<h2>Your Pokémon Collection</h2>
-			<ul>
-				{pokemonCollection.map((pokemon) => (
-					<div key={pokemon.species}>
-						<h3>{pokemon.species}</h3>
-						{pokemon.isShiny ? (
-							<img
-								width="auto"
-								height="250"
-								alt="shiny pokemon sprite"
-								src={pokemon.shinySprite}
-							/>
-						) : (
-							<img
-								width="auto"
-								height="250"
-								alt="pokemon sprite"
-								src={pokemon.sprite}
-							/>
-						)}
-						<br />
-						<button onClick={() => updateShinyState(pokemon, userUID)}>
-							{pokemon.isShiny ? 'Make Normal' : 'Make Shiny'}
-						</button>
-						<br />
-						{console.log('Current Pokemon:', pokemon)}
-					</div>
-				))}
-			</ul>
+
+			{pokemonCollection.map((pokemon) => (
+				<article
+					className="pokemon-card"
+					key={pokemon.species}
+				>
+					<h3>{pokemon.species}</h3>
+					{pokemon.isShiny ? (
+						<img
+							width="auto"
+							height="250"
+							alt="shiny pokemon sprite"
+							src={pokemon.shinySprite}
+						/>
+					) : (
+						<img
+							width="auto"
+							height="250"
+							alt="pokemon sprite"
+							src={pokemon.sprite}
+						/>
+					)}
+					<br />
+					<button onClick={() => updateShinyState(pokemon, userUID)}>
+						{pokemon.isShiny ? 'Make Normal' : 'Make Shiny'}
+					</button>
+					<br />
+				</article>
+			))}
 		</div>
 	)
 }

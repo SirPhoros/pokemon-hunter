@@ -53,7 +53,7 @@ function LoginRegister() {
 	}
 
 	return (
-		<div>
+		<section>
 			<h2>Login/Register</h2>
 			<input
 				type="text"
@@ -69,7 +69,7 @@ function LoginRegister() {
 			/>
 			<button onClick={handleLogin}>Login</button>
 			<button onClick={handleRegister}>Register</button>
-		</div>
+		</section>
 	)
 }
 
