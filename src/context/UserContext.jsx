@@ -36,9 +36,25 @@ export function UserProvider({ children }) {
 		}
 	}, [userUID, username])
 
+	// Add a logout function that clears user data
+	const clearUserDataOnLogOut = () => {
+		setUserUID(null)
+		setUsername(null)
+
+		// Clear cookies
+		Cookies.remove('userUID')
+		Cookies.remove('username')
+	}
+
 	return (
 		<UserContext.Provider
-			value={{ userUID, setUserUID, username, setUsername }}
+			value={{
+				userUID,
+				setUserUID,
+				username,
+				setUsername,
+				clearUserDataOnLogOut,
+			}}
 		>
 			{children}
 		</UserContext.Provider>

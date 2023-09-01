@@ -17,10 +17,10 @@ function LoginRegister({ setIsLoggedIn }) {
 					setPassword('')
 					// Set the user's UID and username in the context
 					setUserUID(user.uid)
-					setUsername(user.username)
+					setUsername(user.email)
 					// Successfully logged in, set user data as cookies
 					Cookies.set('userUID', user.uid)
-					Cookies.set('username', user.username)
+					Cookies.set('username', user.email)
 				} else {
 					console.error('User is undefined')
 				}
@@ -39,10 +39,10 @@ function LoginRegister({ setIsLoggedIn }) {
 					setIsLoggedIn(true)
 					// Set the user's UID and username in the context
 					setUserUID(user.uid)
-					setUsername(user.username)
+					setUsername(user.email)
 					// Successfully registered in, set user data as cookies
 					Cookies.set('userUID', user.uid)
-					Cookies.set('username', user.username)
+					Cookies.set('username', user.email)
 				} else {
 					console.error('User is undefined')
 				}
