@@ -10,6 +10,8 @@ import {
 	setDoc,
 	updateDoc,
 	getDoc,
+	getDocs,
+	collection,
 } from 'firebase/firestore'
 //Firebase Auth
 import {
@@ -170,7 +172,9 @@ export function updateShinyState(pokemonData, userUid) {
 }
 
 export function fetchUserPokemonCollection(userUid) {
-	return getDocs(collection(db, 'Users', userUid, 'Pokemon'))
+	const userPokemonCollectionRef = collection(db, 'Users', userUid, 'Pokemon')
+
+	return getDocs(userPokemonCollectionRef)
 		.then((querySnapshot) => {
 			// Initialize an array to store the Pokémon data
 			const pokemonCollection = []
