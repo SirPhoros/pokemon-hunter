@@ -171,10 +171,7 @@ export function updateShinyState(pokemonData, userUid) {
 		})
 }
 
-export function fetchUserPokemonCollection(
-	userUid,
-	setPokemonCollection
-) {
+export function fetchUserPokemonCollection(userUid, setPokemonCollection) {
 	const userPokemonCollectionRef = collection(db, 'Users', userUid, 'Pokemon')
 
 	// Attach a real-time listener to the collection
@@ -183,6 +180,7 @@ export function fetchUserPokemonCollection(
 		querySnapshot.forEach((doc) => {
 			updatedCollection.push(doc.data())
 		})
+		//update React State with the new collection
 		setPokemonCollection(updatedCollection)
 	})
 }

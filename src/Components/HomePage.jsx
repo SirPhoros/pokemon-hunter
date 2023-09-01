@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import SearchPokemon from './SearchPokemon'
 import LoginRegister from './LoginRegister'
+import PokemonGrid from './PokemonGrid'
 
 export default function HomePage({ isLoggedIn, setIsLoggedIn }) {
 	useEffect(() => {}, [isLoggedIn])
@@ -11,7 +11,7 @@ export default function HomePage({ isLoggedIn, setIsLoggedIn }) {
 		<>
 			<h1>Pokemon Hunter</h1>
 			{isLoggedIn ? (
-				<SearchPokemon />
+				<PokemonGrid />
 			) : (
 				<LoginRegister setIsLoggedIn={setIsLoggedIn} />
 			)}
