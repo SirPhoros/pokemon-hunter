@@ -251,3 +251,31 @@ y
 .login-register-container button:first-child {
 	margin-right: 10px; /* Add some spacing between buttons */
 }
+
+/* Add this CSS style in your component's CSS file or global CSS */
+
+/* Feedback message styles */
+.feedback-message {
+	font-size: 1rem;
+	margin-top: 0.5rem;
+	padding: 0.5rem;
+	background-color: #ff6b6b; /* Red background */
+	color: white;
+	border-radius: 8px;
+	text-align: center;
+	transition: opacity 0.3s ease-in-out;
+}
+
+.feedback-message.success {
+	background-color: #64cd7a; /* Green background for success */
+}
+
+.feedback-message.error {
+	background-color: #ff6b6b; /* Red background for error */
+}
+
+/* Transition effect for smooth appearance/disappearance */
+.feedback-message.fade-out {
+	opacity: 0;
+	transition: opacity 0.3s ease-in-out;
+}
