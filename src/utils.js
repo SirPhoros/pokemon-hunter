@@ -12,8 +12,12 @@ export function getFuzzyPokemon(input) {
 				query GetFuzzyPokemon($pokemon: String!) {
 					getFuzzyPokemon(pokemon: $pokemon) {
 						sprite
+						shinySprite
 						num
 						species
+						types {
+							name
+						}
 					}
 				}
 			`,
@@ -26,7 +30,6 @@ export function getFuzzyPokemon(input) {
 		})
 		.catch((error) => {
 			// Handle any errors that occurred during the query.
-
 			throw error // Rethrow the error if needed.
 		})
 }
