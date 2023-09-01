@@ -3,11 +3,9 @@
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
 	font-weight: 400;
-
 	color-scheme: light dark;
 	color: rgba(255, 255, 255, 0.87);
 	background-color: #242424;
-
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
@@ -149,13 +147,12 @@ footer p {
 	align-items: stretch;
 	min-height: 100vh;
 }
-y
 
 /* Pokemon Grid */
 .pokemon-grid {
-	flex: 1; /* Allow the grid to expand and fill the available space */
-	overflow-y: auto; /* Add vertical scrolling if needed */
-	padding-top: 60px; /* Adjust the top padding to match the navigation height */
+	flex: 1;
+	overflow-y: auto;
+	padding-top: 60px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -163,13 +160,6 @@ y
 }
 
 /* Pokemon Card Styles */
-.pokemon-grid {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	gap: 20px;
-}
-
 .pokemon-card {
 	background-color: #f0f0f0;
 	border-radius: 10px;
@@ -206,8 +196,8 @@ y
 }
 
 .scrollable-container {
-	max-height: 500px; /* Set a fixed height for the container */
-	overflow-y: auto; /* Enable vertical scrolling if content overflows */
+	max-height: 500px;
+	overflow-y: auto;
 }
 
 /* LoginRegister.css */
@@ -229,37 +219,35 @@ y
 }
 
 .login-register-container input {
-	padding: 10px; /* Add some padding to inputs */
-	border: 1px solid #ccc; /* Add a border to inputs */
-	border-radius: 5px; /* Rounded corners for inputs */
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
 }
 
 .login-register-container button {
-	background-color: #007bff; /* Blue background for buttons */
-	color: white; /* White text color */
+	background-color: #007bff;
+	color: white;
 	border: none;
 	border-radius: 5px;
-	padding: 10px 20px; /* Adjust padding as needed */
+	padding: 10px 20px;
 	cursor: pointer;
 	font-size: 1rem;
 }
 
 .login-register-container button:hover {
-	background-color: #0056b3; /* Darker blue on hover */
+	background-color: #0056b3;
 }
 
 .login-register-container button:first-child {
-	margin-right: 10px; /* Add some spacing between buttons */
+	margin-right: 10px;
 }
-
-/* Add this CSS style in your component's CSS file or global CSS */
 
 /* Feedback message styles */
 .feedback-message {
 	font-size: 1rem;
 	margin-top: 0.5rem;
 	padding: 0.5rem;
-	background-color: #ff6b6b; /* Red background */
+	background-color: #ff6b6b;
 	color: white;
 	border-radius: 8px;
 	text-align: center;
@@ -267,14 +255,13 @@ y
 }
 
 .feedback-message.success {
-	background-color: #64cd7a; /* Green background for success */
+	background-color: #64cd7a;
 }
 
 .feedback-message.error {
-	background-color: #ff6b6b; /* Red background for error */
+	background-color: #ff6b6b;
 }
 
-/* Transition effect for smooth appearance/disappearance */
 .feedback-message.fade-out {
 	opacity: 0;
 	transition: opacity 0.3s ease-in-out;
