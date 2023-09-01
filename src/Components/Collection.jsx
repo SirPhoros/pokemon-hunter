@@ -4,24 +4,24 @@ import {
 	updateShinyState,
 } from '../firebase-db-utils'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function Collection() {
 	const { userUID } = useUser()
 	const [pokemonCollection, setPokemonCollection] = useState([])
 	const [loading, setLoading] = useState(true)
+	const navigate = useNavigate() // Get the navigation function
 
 	useEffect(() => {
-		// Fetch the user's Pokémon collection
-		fetchUserPokemonCollection(userUID)
-			.then((collection) => {
-				setPokemonCollection(collection)
-				setLoading(false)
-			})
-			.catch((error) => {
-				console.error('Error fetching Pokémon collection:', error)
-				setLoading(false)
-			})
-	}, [userUID])
+		if (!userUID) {
+			// If there is no userUID, navigate to the main page
+			navigate('/')
+		} else {
+			// Fetch and listen to the user's Pokémon collection in real-time
+			fetchUserPokemonCollection(userUID, setPokemonCollection)
+			setLoading(false)
+		}
+	}, [userUID, navigate])
 
 	if (loading) {
 		return <h2>Loading...</h2>
@@ -34,15 +34,27 @@ export default function Collection() {
 				{pokemonCollection.map((pokemon) => (
 					<div key={pokemon.species}>
 						<h3>{pokemon.species}</h3>
-						<img
-							width="auto"
-							height="250"
-							alt="pokemon sprite"
-							src={pokemon.sprite}
-						/>
+						{pokemon.isShiny ? (
+							<img
+								width="auto"
+								height="250"
+								alt="shiny pokemon sprite"
+								src={pokemon.shinySprite}
+							/>
+						) : (
+							<img
+								width="auto"
+								height="250"
+								alt="pokemon sprite"
+								src={pokemon.sprite}
+							/>
+						)}
 						<br />
-						<button onClick={() => updateShinyState(pokemon)}>Shiny?</button>
+						<button onClick={() => updateShinyState(pokemon, userUID)}>
+							{pokemon.isShiny ? 'Make Normal' : 'Make Shiny'}
+						</button>
 						<br />
+						{console.log('Current Pokemon:', pokemon)}
 					</div>
 				))}
 			</ul>

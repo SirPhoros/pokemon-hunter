@@ -12,6 +12,7 @@ import {
 	getDoc,
 	getDocs,
 	collection,
+	onSnapshot,
 } from 'firebase/firestore'
 //Firebase Auth
 import {
@@ -127,8 +128,7 @@ export function addPokemonToUserCollection(pokemon, userUid) {
 
 export function updateShinyState(pokemonData, userUid) {
 	const { species } = pokemonData
-	console.log(species, 'species')
-
+	console.log(pokemonData)
 	// Reference to the user's Pokémon document
 	const userPokemonDocRef = doc(db, 'Users', userUid, 'Pokemon', species)
 
@@ -171,25 +171,18 @@ export function updateShinyState(pokemonData, userUid) {
 		})
 }
 
-export function fetchUserPokemonCollection(userUid) {
+export function fetchUserPokemonCollection(
+	userUid,
+	setPokemonCollection
+) {
 	const userPokemonCollectionRef = collection(db, 'Users', userUid, 'Pokemon')
 
-	return getDocs(userPokemonCollectionRef)
-		.then((querySnapshot) => {
-			// Initialize an array to store the Pokémon data
-			const pokemonCollection = []
-
-			// Loop through the query results and add them to the array
-			querySnapshot.forEach((doc) => {
-				const pokemonData = doc.data()
-				pokemonCollection.push(pokemonData)
-			})
-
-			// Return the Pokémon collection
-			return pokemonCollection
+	// Attach a real-time listener to the collection
+	onSnapshot(userPokemonCollectionRef, (querySnapshot) => {
+		const updatedCollection = []
+		querySnapshot.forEach((doc) => {
+			updatedCollection.push(doc.data())
 		})
-		.catch((error) => {
-			console.error('Error fetching user Pokémon collection:', error)
-			return [] // Return an empty array in case of an error
-		})
+		setPokemonCollection(updatedCollection)
+	})
 }
