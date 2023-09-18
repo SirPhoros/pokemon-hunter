@@ -67,19 +67,19 @@ To get started with Pokemon Hunter, follow these steps:
 
 4.  Create a Firebase project and configure Firebase Authentication and Database.
 
-5.  You can change and add your Firebase configuration:
+5.  Create a `.env` file in the project root directory and add your Firebase configuration:
 
-        const firebaseConfig = {
-        apiKey: your-api-key,
-        authDomain: your-auth-domain,
-        projectId: your-project-id,
-        storageBucket: your-storage-bucket,
-        messagingSenderId: your-messaging-sender-id,
-        appId: your-app-id,}
+    ```env
+    REACT_APP_API_KEY=your-api-key
+    REACT_APP_AUTH_DOMAIN=your-auth-domain
+    REACT_APP_PROJECT_ID=your-project-id
+    REACT_APP_STORAGE_BUCKET=your-storage-bucket
+    REACT_APP_MESSAGING_SENDER_ID=your-messaging-sender-id
+    REACT_APP_APP_ID=your-app-id
 
-> In a normal situation, this should be done in a .env file
+    ```
 
-5.  Start the development server:
+6.  Start the development server:
 
     ```bash
     npm run dev
